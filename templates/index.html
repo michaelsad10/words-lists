@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <form action="/words" method="post">
+        {{ form.hidden_tag() }} 
+        {{ form.word_length.label }}
+        {{ form.word_length }}
+        <br>
+        {{ form.pattern.label }}
+        {{ form.pattern }}
+        <br>
+        {{ form.avail_letters.label }}
+        {{ form.avail_letters }}
+        {{ form.submit() }}
+    </form>
+{% endblock %} 
