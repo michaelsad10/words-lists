@@ -31,6 +31,7 @@ def letters_2_words():
     if form.validate_on_submit():
         letters = form.avail_letters.data 
         word_length = form.word_length.data
+        pattern = form.pattern.data 
     else:
         return render_template("index.html", form=form)
     with open('sowpods.txt') as f:
@@ -43,17 +44,29 @@ def letters_2_words():
     if letters == '':
         for word in good_words:
             if x == 0:
-                word_set.add(word) 
+                wlist = re.findall("^" + pattern + "$", word)
+                if len(wlist) != 0:
+                    word_set.add(wlist[0])
+                    wlist.clear 
             elif len(word) <= x: 
-                word_set.add(word) 
+                wlist = re.findall("^" + pattern + "$", word)
+                if len(wlist) != 0:
+                    word_set.add(wlist[0])
+                    wlist.clear 
     else: 
         for l in range(3, len(letters)+1):
             for word in itertools.permutations(letters,l):
                 w = "".join(word) 
                 if w in good_words and x == 0:
-                    word_set.add(w)
+                    wlist = re.findall("^" + pattern + "$", w)
+                    if len(wlist) != 0:
+                        word_set.add(wlist[0])
+                        wlist.clear
                 elif w in good_words and len(w) <= x: 
-                    word_set.add(w)  
+                    wlist = re.findall("^" + pattern + "$", w)
+                    if len(wlist) != 0:
+                        word_set.add(wlist[0])
+                        wlist.clear  
     word_set = sorted(word_set, key=lambda x: (len(x), x))
     return render_template('wordlist.html', wordlist=word_set, name="Michael Sadaghyani")
 
