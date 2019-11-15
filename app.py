@@ -4,6 +4,7 @@ import itertools
 from flask_wtf.csrf import CSRFProtect
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, SelectField
+from wtforms.validators import Regexp, ValidationError
 import re 
 
 
@@ -14,6 +15,7 @@ class WordForm(FlaskForm):
     word_length = SelectField(u'Word Length', choices=[('', ''), ('3', 3), ('4', 4), ('5', 5), ('6',6), ('7',7), ('8',8), ('9',9), ('10',10)])
     submit = SubmitField("Go")
 
+    
 csrf = CSRFProtect()
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "row the boat"
@@ -71,7 +73,18 @@ def letters_2_words():
     return render_template('wordlist.html', wordlist=word_set, name="Michael Sadaghyani")
 
 
+@app.route('/get-def', methods=['GET'])
+def getDef():
+    word = request.args.get('word')
+    url = 'https://www.dictionaryapi.com/api/v3/references/collegiate/json/' + word + '?key=b4648064-9416-46e0-b3d9-a94733cc65d3'
+    response = requests.get(url)
+    resp = Response(response.text)
+    resp.headers['Content-Type'] = 'application/json'
+    return resp 
 
+
+
+# https://www.dictionaryapi.com/api/v3/references/collegiate/json/test?key=b4648064-9416-46e0-b3d9-a94733cc65d3
 
 
 # @app.route('/post')
