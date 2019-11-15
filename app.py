@@ -4,6 +4,7 @@ import itertools
 from flask_wtf.csrf import CSRFProtect
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, SelectField
+import re 
 
 
 
@@ -30,20 +31,31 @@ def letters_2_words():
     if form.validate_on_submit():
         letters = form.avail_letters.data 
         word_length = form.word_length.data
-        print(word_length)
     else:
-        print(form.errors) 
         return render_template("index.html", form=form)
     with open('sowpods.txt') as f:
         good_words = set(x.strip().lower() for x in f.readlines()) 
-    
+    if word_length == '':  # if word length is blank we return all lengths 
+        x = 0
+    else:
+        x = int(word_length)
     word_set = set() 
-    for l in range(3, len(letters)+1):
-        for word in itertools.permutations(letters,l):
-            w = "".join(word) 
-            if w in good_words:
-                word_set.add(w) 
-    return render_template('wordlist.html', wordlist=sorted(word_set), name="Michael Sadaghyani")
+    if letters == '':
+        for word in good_words:
+            if x == 0:
+                word_set.add(word) 
+            elif len(word) <= x: 
+                word_set.add(word) 
+    else: 
+        for l in range(3, len(letters)+1):
+            for word in itertools.permutations(letters,l):
+                w = "".join(word) 
+                if w in good_words and x == 0:
+                    word_set.add(w)
+                elif w in good_words and len(w) <= x: 
+                    word_set.add(w)  
+    word_set = sorted(word_set, key=lambda x: (len(x), x))
+    return render_template('wordlist.html', wordlist=word_set, name="Michael Sadaghyani")
 
 
 
