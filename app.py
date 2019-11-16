@@ -34,6 +34,11 @@ def letters_2_words():
         letters = form.avail_letters.data 
         word_length = form.word_length.data
         pattern = form.pattern.data 
+        if pattern == '':
+            pattern = "^[a-z]+$"
+        else: 
+            pattern = "^" + pattern + "$"
+
     else:
         return render_template("index.html", form=form)
     with open('sowpods.txt') as f:
@@ -46,12 +51,12 @@ def letters_2_words():
     if letters == '':
         for word in good_words:
             if x == 0:
-                wlist = re.findall("^" + pattern + "$", word)
+                wlist = re.findall(pattern, word)
                 if len(wlist) != 0:
                     word_set.add(wlist[0])
                     wlist.clear 
             elif len(word) <= x: 
-                wlist = re.findall("^" + pattern + "$", word)
+                wlist = re.findall(pattern, word)
                 if len(wlist) != 0:
                     word_set.add(wlist[0])
                     wlist.clear 
@@ -60,12 +65,12 @@ def letters_2_words():
             for word in itertools.permutations(letters,l):
                 w = "".join(word) 
                 if w in good_words and x == 0:
-                    wlist = re.findall("^" + pattern + "$", w)
+                    wlist = re.findall(pattern, w)
                     if len(wlist) != 0:
                         word_set.add(wlist[0])
                         wlist.clear
                 elif w in good_words and len(w) <= x: 
-                    wlist = re.findall("^" + pattern + "$", w)
+                    wlist = re.findall(pattern, w)
                     if len(wlist) != 0:
                         word_set.add(wlist[0])
                         wlist.clear  
