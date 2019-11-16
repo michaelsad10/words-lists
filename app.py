@@ -24,7 +24,7 @@ app = Flask(__name__)
 app.config["SECRET_KEY"] = "row the boat"
 csrf.init_app(app)
 
-@app.route('/')
+@app.route('/index')
 def index():
     form = WordForm() 
     return render_template("index.html", form=form, name="Michael Sadaghyani")
