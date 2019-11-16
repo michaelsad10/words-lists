@@ -1,7 +1,7 @@
 <html>
     <head>
-        <script src="{{url_for('static', filename='request.js')}}"></script>
         <link rel="stylesheet" href="/static/wordstyle.css">
+        <script src="{{url_for('static', filename='request.js')}}"></script>
     </head>
     <body>
         {% block navbar %}
@@ -9,15 +9,16 @@
             <h1> Word List - {{name}}</h1>
         </nav>
         {% endblock %}
-
-        {% block content %}
         <div id="myModal" class="modal">
                 <!-- Modal content -->
                 <div class="modal-content">
-                  <span class="close">&times;</span>
-                  <p>Some text in the Modal..</p>
+                <strong> Definition: </strong>
+                  <p id="def"></p>
+                  <button onclick="closeModal()">close</button>
+
                 </div>    
-              </div>
+        </div>
+        {% block content %}
         default content 
         {% endblock %}
     </body>

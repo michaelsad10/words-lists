@@ -1,23 +1,7 @@
-import { spawn } from "child_process";
-
-
-
-
-// Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
-span.onclick = function() {
-    modal.style.display = "none";
-  }
-
-window.onclick = function(event) {
-    if (event.target == modal) {
-      modal.style.display = "none";
-    }
-  }
-
 function getDef(element) {
+    var x = document.getElementById("def").innerHTML = ''; 
     var modal = document.getElementById("myModal");
-
+    modal.style.display = "block"; 
     word = element.innerHTML; 
     console.log(word); 
     var request = new XMLHttpRequest(); 
@@ -28,14 +12,22 @@ function getDef(element) {
             var response = JSON.parse(request.responseText); 
             var def = response[0].shortdef[0]; 
             console.log(def); 
-            modal.style.display="block";
+            var x = document.getElementById("def").innerHTML = def;  
         }
     }
     request.open("GET", url);
     request.send(); 
-    // const xhttp = new XMLHttpRequest();
-    // const url = 'http://127.0.0.1:5000/get-def?word=Python';
-    // Http.open("GET", url);
-    // Http.send(); 
 }
+
+
+function closeModal() {
+    var modal = document.getElementById("myModal");
+    modal.style.display = "none";
+}
+
+
+
+
+
+
 
