@@ -1,5 +1,23 @@
+import { spawn } from "child_process";
+
+
+
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+span.onclick = function() {
+    modal.style.display = "none";
+  }
+
+window.onclick = function(event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  }
 
 function getDef(element) {
+    var modal = document.getElementById("myModal");
+
     word = element.innerHTML; 
     console.log(word); 
     var request = new XMLHttpRequest(); 
@@ -10,6 +28,7 @@ function getDef(element) {
             var response = JSON.parse(request.responseText); 
             var def = response[0].shortdef[0]; 
             console.log(def); 
+            modal.style.display="block";
         }
     }
     request.open("GET", url);
@@ -19,3 +38,4 @@ function getDef(element) {
     // Http.open("GET", url);
     // Http.send(); 
 }
+

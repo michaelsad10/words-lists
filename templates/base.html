@@ -1,6 +1,7 @@
 <html>
     <head>
         <script src="{{url_for('static', filename='request.js')}}"></script>
+        <link rel="stylesheet" href="/static/wordstyle.css">
     </head>
     <body>
         {% block navbar %}
@@ -10,6 +11,13 @@
         {% endblock %}
 
         {% block content %}
+        <div id="myModal" class="modal">
+                <!-- Modal content -->
+                <div class="modal-content">
+                  <span class="close">&times;</span>
+                  <p>Some text in the Modal..</p>
+                </div>    
+              </div>
         default content 
         {% endblock %}
     </body>
