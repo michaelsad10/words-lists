@@ -13,7 +13,7 @@ class WordForm(FlaskForm):
         Regexp(r'^$|^[a-z]+$', message="must contain letters only")
     ])
     pattern = StringField("Pattern", validators=[
-        Regexp(r'^[a-z.]+$', message="must be regex pattern")
+        Regexp(r'^$|^[a-z.]+$', message="must be regex pattern")
     ])
     word_length = SelectField(u'Word Length', choices=[('', ''), ('3', 3), ('4', 4), ('5', 5), ('6',6), ('7',7), ('8',8), ('9',9), ('10',10)])
     submit = SubmitField("Go")

@@ -35,3 +35,17 @@
     text-decoration: none;
     cursor: pointer;
   }
+
+
+  main {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    background-color: lightslategray;
+}
+
+.wordbox {
+    text-align: center;
+    border: solid white;
+    margin: 3px;
+
+}
