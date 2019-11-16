@@ -31,15 +31,6 @@ def index():
     form = WordForm() 
     return render_template("index.html", form=form, name="Michael Sadaghyani")
 
-@app.route('/get-def', methods=['GET'])
-def getDef():
-    word = request.args.get('word')
-    url = 'https://www.dictionaryapi.com/api/v3/references/collegiate/json/' + word + '?key=b4648064-9416-46e0-b3d9-a94733cc65d3'
-    response = requests.get(url)
-    resp = Response(response.text)
-    resp.headers['Content-Type'] = 'application/json'
-    return resp 
-
 @app.route('/words', methods=['POST', 'GET'])
 def letters_2_words():
     form = WordForm()
@@ -92,6 +83,16 @@ def letters_2_words():
                         wlist.clear  
     word_set = sorted(word_set, key=lambda x: (len(x), x))
     return render_template('wordlist.html', wordlist=word_set, name="Michael Sadaghyani")
+
+@app.route('/get-def')
+def getDef():
+    word = request.args.get('word')
+    url = 'https://www.dictionaryapi.com/api/v3/references/collegiate/json/' + word + '?key=b4648064-9416-46e0-b3d9-a94733cc65d3'
+    response = requests.get(url)
+    resp = Response(response.text)
+    resp.headers['Content-Type'] = 'application/json'
+    return resp 
+
 
 
 # https://www.dictionaryapi.com/api/v3/references/collegiate/json/test?key=b4648064-9416-46e0-b3d9-a94733cc65d3
