@@ -1,18 +1,24 @@
 {% extends "base.html" %}
-
+{% from "_formhelpers.html" import render_field %}
 {% block content %}
     <form action="/words" method="post">
         {{ form.hidden_tag() }} 
-        {{ form.word_length.label }}
-        {{ form.word_length }}
+        {{ render_field(form.word_length)}}
         <br>
-        {{ form.pattern.label }}
-        {{ form.pattern }}
+        {{ render_field(form.pattern)}}
         <br>
-        {{ form.avail_letters.label }}
-        {{ form.avail_letters }}
+        {{ render_field(form.avail_letters)}}
         <br> 
+        <br> 
+        {{error}}
         <br> 
         {{ form.submit() }}
     </form>
 {% endblock %} 
+<!-- 
+{{ form.avail_letters.label }}
+{{ form.avail_letters }}
+{{ form.pattern.label }}
+{{ form.pattern }}
+{{ form.word_length.label }}
+{{ form.word_length }} -->

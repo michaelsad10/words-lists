@@ -5,13 +5,16 @@ from flask_wtf.csrf import CSRFProtect
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, SelectField
 from wtforms.validators import Regexp, ValidationError
-import re 
-
+import re
 
 
 class WordForm(FlaskForm):
-    avail_letters = StringField("Letters")
-    pattern = StringField("Pattern")
+    avail_letters = StringField("Letters", validators= [
+        Regexp(r'^$|^[a-z]+$', message="must contain letters only")
+    ])
+    pattern = StringField("Pattern", validators=[
+        Regexp(r'^[a-z.]+$', message="must be regex pattern")
+    ])
     word_length = SelectField(u'Word Length', choices=[('', ''), ('3', 3), ('4', 4), ('5', 5), ('6',6), ('7',7), ('8',8), ('9',9), ('10',10)])
     submit = SubmitField("Go")
 
@@ -31,22 +34,25 @@ def index():
 def letters_2_words():
     form = WordForm()
     if form.validate_on_submit():
+        print("hello")
         letters = form.avail_letters.data 
         word_length = form.word_length.data
         pattern = form.pattern.data 
-        if pattern == '':
+        if word_length == '':
+            x = 0
+        else:
+            x = int(word_length)
+        if len(pattern) > x and x != 0:
+            return render_template("index.html", form=form, name="Michael Sadaghyani", error='Pattern length is greater than word length')
+        if len(pattern) == 0:
             pattern = "^[a-z]+$"
-        else: 
+        elif len(pattern) <= x and len(pattern) != 0:
+            x = len(pattern) 
             pattern = "^" + pattern + "$"
-
     else:
-        return render_template("index.html", form=form)
+        return render_template("index.html", form=form, name="Michael Sadaghyani")
     with open('sowpods.txt') as f:
         good_words = set(x.strip().lower() for x in f.readlines()) 
-    if word_length == '':  # if word length is blank we return all lengths 
-        x = 0
-    else:
-        x = int(word_length)
     word_set = set() 
     if letters == '':
         for word in good_words:
