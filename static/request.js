@@ -4,7 +4,8 @@ function getDef(element) {
     modal.style.display = "block"; 
     word = element.innerHTML; 
     var request = new XMLHttpRequest(); 
-    const url = 'http://127.0.0.1:5000/get-def?word=' + word; 
+    // const url = 'http://127.0.0.1:5000/get-def?word=' + word; 
+    const url = 'https://shielded-shore-94512.herokuapp.com/get-def?word=' + word;; 
     request.onreadystatechange=function(){
         if(request.readyState==4 && request.status==200){
             var response = JSON.parse(request.responseText); 
