@@ -85,30 +85,3 @@ def getDef():
 
 
 # https://www.dictionaryapi.com/api/v3/references/collegiate/json/test?key=b4648064-9416-46e0-b3d9-a94733cc65d3
-
-
-# @app.route('/post')
-# def post():
-#     return render_template("form.html")
-
-
-# @app.route('/words', methods=['POST', 'GET'])
-# def letters_2_words():
-#     with open('sowpods.txt') as f:
-#         good_words = set(x.strip().lower() for x in f.readlines()) 
-#         x = [] 
-#         for words in good_words:
-#             if len(words) <= 3:
-#                 x.append(words) 
-#     return render_template('wordlist.html', wordlist=x)
-
-
-
-
-# @app.route('/')
-# def hello_world():
-#     return f"<p> Hello, World </p>"
-
-# @app.route('/user/<username>')
-# def show_user_profile(username):
-#     return f'User {username}'
