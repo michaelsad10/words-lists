@@ -5,8 +5,6 @@ function getDef(element) {
     word = element.innerHTML; 
     var request = new XMLHttpRequest(); 
     const url = 'http://127.0.0.1:5000/get-def?word=' + word; 
-    request.open("GET", url);
-    request.send(); 
     request.onreadystatechange=function(){
         if(request.readyState==4 && request.status==200){
             var response = JSON.parse(request.responseText); 
@@ -14,6 +12,8 @@ function getDef(element) {
             var x = document.getElementById("def").innerHTML = def;  
         }
     }
+    request.open("GET", url);
+    request.send(); 
 }
 
 
